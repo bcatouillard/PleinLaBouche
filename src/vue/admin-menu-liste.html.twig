@@ -1,0 +1,62 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Liste des menus {% endblock %}
+
+{% block body %}
+    
+    <h1 class="h3 mb-3 font-weight-normal">Liste des menus - <a href="index.php?page=admin-menu-ajout">Ajouter un menu</a></h1>
+    
+    <form method="post" action="index.php?page=admin-menu-liste">
+        <table class="table col-sm-10 md-6 offset-1">
+            <thead>
+                <tr>
+                    <th scoe="col">Date</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Plat</th>
+                    <th scope="col">Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if not liste is empty %}
+                    {% for u in liste %}
+                        <tr>
+                            <td scope="row"><a href="index.php?page=admin-menu-modif&id={{u.id}}&date={{u.date}}">{{u.dateC}}</a></td>
+                            <td scope="row">{{u.description}}</td>
+                            <td scope="row">{{u.designation}}</td>
+                            <td scope="row"><input type="checkbox" name="cocher[]"  class="checkbox" value="{{u.id}}"/></td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <td align="center" class="h2">Aucun menu à afficher</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                {% endif %}
+            </tbody>
+        </table>
+        {% if form.nbmenu is defined %}
+            {% if form.nbmenu > 3 %}
+                {% set nb = form.nbpages %}
+                <nav aria-label="Page navigation" class="col-sm-10 md-6 offset-1">
+                    <ul class="pagination">
+                        <li>
+                            <a href="index.php?page=admin-menu-liste&nopage={{ 0 }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% for i in 1..nb %}
+                        <li><a href="index.php?page=admin-menu-liste&nopage={{ i-1 }}">{{ i }}</a></li>
+                    {% endfor %} 
+                        <li>
+                            <a href="index.php?page=admin-menu-liste&nopage={{ nb-1 }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            {% endif %}
+        {% endif %}
+        <button class="btn btn-outline-danger col-sm-10 md-6 offset-1" type="submit" name="btSupprimer" class="btSupprimer">Supprimer</button>
+    </form>
+    
+{% endblock %}

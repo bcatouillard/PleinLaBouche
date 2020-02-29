@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Liste des catégories {% endblock %}
+
+{% block body %}
+    
+    <h1 class="h3 mb-3 font-weight-normal">Liste des catégories - <a href="index.php?page=admin-categorie-ajout">Ajouter une catégorie</a></h1>
+    
+    <form method="post" action="index.php?page=admin-categorie-liste">
+        <table class="table col-sm-10 md-6 offset-1">
+            <thead>
+                <tr>
+                    <th scoe="col">Libellé</th>
+                    <th scope="col">Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if not liste is empty %}
+                    {% for u in liste %}
+                        <tr>
+                            <td scope="row"><a href="index.php?page=admin-categorie-modif&id={{u.id}}">{{u.libelle}}</a></td>
+                            <td scope="row"><input type="checkbox" name="cocher[]"  class="checkbox" value="{{u.id}}"/></td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <td align="center" class="h2">Aucune catégorie à afficher</td>
+                {% endif %}
+            </tbody>
+        </table>
+        {% if form.nbcategorie is defined %}
+            {% if form.nbcategorie > 3 %}
+                {% set nb = form.nbpages %}
+                <nav aria-label="Page navigation" class="col-sm-10 md-6 offset-1">
+                    <ul class="pagination">
+                        <li>
+                            <a href="index.php?page=admin-categorie-liste&nopage={{ 0 }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% for i in 1..nb %}
+                        <li><a href="index.php?page=admin-categorie-liste&nopage={{ i-1 }}">{{ i }}</a></li>
+                    {% endfor %} 
+                        <li>
+                            <a href="index.php?page=admin-categorie-liste&nopage={{ nb-1 }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            {% endif %}
+        {% endif %}
+        <button class="btn btn-outline-danger col-sm-10 md-6 offset-1" type="submit" name="btSupprimer" class="btSupprimer">Supprimer</button>
+    </form>
+    
+{% endblock %}

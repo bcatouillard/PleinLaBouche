@@ -1,0 +1,124 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Modifier un plat {% endblock %}
+
+{% block style %} <link href="css/form.css" rel="stylesheet">    {% endblock %}
+
+{% block body %}
+    {% if form.valide is defined %}
+        {% if form.valide == true %}
+            <div class="alert alert-success col-sm-6 md-7 offset-3" role="alert"><p class="col-sm-7 md-8 offset-5">{{form.message}}</p>
+                <a class="col-sm-7 md-8 offset-5" href="index.php?page=admin-plat-liste">Retour à la liste des plats</a>
+            </div>
+        {% else %}
+            <div class="alert alert-danger col-sm-6 md-7 offset-3" role="alert"><p class="col-sm-7 md-8 offset-5">{{form.message}}</p>
+                <a class="col-sm-7 md-8 offset-5" href="index.php?page=admin-plat-liste">Retour à la liste des plats</a>
+            </div>
+        {% endif%}
+    {% else %}
+        {% if form.produit is defined %}
+            {% if form.produit != null %}
+                <div class="container">
+                    <h1 class="h3 mb-3 font-weight-normal">Modifier un plat</h1>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {% if form.lesPhotos is defined %}
+                                {% if form.lesPhotos != null %}
+                                    <form class="form-group" action="index.php?page=admin-plat-modif" method="post" enctype="multipart/form-data">
+                                        <div id="carouselExampleControls" class="carousel slide col-md-10" data-ride="carousel">
+                                            <div class="carousel-inner">
+                                                    <div class="carousel-item active">
+                                                        <img src="{{form.directory}}{{form.lesPhotos.nom}}" class="d-block w-100">
+                                                    </div>
+                                            </div>
+                                        </div>
+                                                    <br>
+                                                    <input type="hidden" name="idPhoto" value="{{ form.lesPhotos.id }}"/>
+                                                    <input type="hidden" name="idProduit" value="{{ form.produit.id }}"/>
+                                        <button type="submit" class="btn btn-block btn-outline-danger btn-lg col-md-10" name="btSupprimerPhoto">Supprimer la photo</button>
+                                    </form>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <form class="form-group" action="index.php?page=admin-plat-modif" method="post" enctype="multipart/form-data" style="width:900px">
+                                <div class="col-sm-9">
+                                    <input type="text" id="designation" name="designation" class="form-control" placeholder="Saisir une désignation:" value="{{form.produit.designation}}">
+                                </div>
+                                <div class="col-sm-9">
+                                    <textarea type="textarea" id="description" name="description" class="form-control" placeholder="Saisir une description:">{{form.produit.description}}</textarea>
+                                </div>
+                                <div class="form-row col-sm-9">
+                                    <div class="col-sm-6">
+                                        <input type="text" id="prix" name="prix" class="form-control" placeholder="Saisir un prix:" value="{{form.produit.prix}}€">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" id="nbPersonne" name="nbPersonne" class="form-control" placeholder="Nombre de personnes:" value="{{form.produit.nbPersonne}}{% if form.produit.nbPersonne > 1 %} personnes {% else %} personne{% endif %}">
+                                    </div>
+                                </div>
+                                <div class="form-row col-sm-9">
+                                    <div class="col-sm-6">
+                                    <select class="form-control" name="cat[]">
+                                        <option value="">Choisissez une catégorie</option>
+                                            {% for u in liste %}
+                                                {% if form.categorie.0.idCategorie is defined %}
+                                                    {% if u.id == form.categorie.0.idCategorie %}
+                                                        <option value="{{u.id}}" selected>{{u.libelle}}</option>
+                                                    {% endif %}
+                                                    <option value="{{u.id}}">{{u.libelle}}</option>
+                                                {% else %}
+                                                    <option value="{{u.id}}">{{u.libelle}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                    </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" name="cat[]">
+                                            <option value="">Choisissez une catégorie</option>
+                                            {% for u in liste %}
+                                                {% if form.categorie.1.idCategorie is defined %}
+                                                    {% if u.id == form.categorie.1.idCategorie %}
+                                                        <option value="{{u.id}}" selected>{{u.libelle}}</option>
+                                                    {% endif %}
+                                                    <option value="{{u.id}}">{{u.libelle}}</option>
+                                                {% else %}
+                                                    <option value="{{u.id}}">{{u.libelle}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row col-sm-9">
+                                    <div class="col-sm-6">
+                                        <select class="form-control" name="cat[]">
+                                             <option value="">Choisissez une catégorie</option>
+                                            {% for u in liste %}
+                                                {% if form.categorie.2.idCategorie is defined %}
+                                                    {% if u.id == form.categorie.2.idCategorie %}
+                                                        <option value="{{u.id}}" selected>{{u.libelle}}</option>
+                                                    {% endif %}
+                                                    <option value="{{u.id}}">{{u.libelle}}</option>
+                                                {% else %}
+                                                    <option value="{{u.id}}">{{u.libelle}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="file" class="form-control-file" name="photo[]" multiple="multiple"/>
+                                    </div>
+                                </div>
+                                        <input type="hidden" name="idProduit" value="{{ form.produit.id }}"/>
+                                <button class="btn btn-lg btn-block btn-outline-primary col-sm-9" type="submit" name="btModifier">Modifier</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-danger col-sm-6 md-7 offset-3" role="alert"><p class="col-sm-7 md-8 offset-5">{{form.message}}</p>
+                    <a class="col-sm-7 md-8 offset-5" href="index.php?page=admin-plat-liste">Retour à la liste des plats</a>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endblock %}

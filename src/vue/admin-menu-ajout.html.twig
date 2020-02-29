@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Ajout d'un menu {% endblock %}
+
+{% block body %}
+    
+    {% if form.valide is defined %}
+        {% if form.valide == true %}
+            <div class="alert alert-success col-sm-6 md-7 offset-3" role="alert"><p class="col-sm-7 md-8 offset-5">{{form.message}}</p>
+                <a class="col-sm-7 md-8 offset-5" href="index.php?page=admin-menu-liste">Retour à la liste des menus</a>
+            </div>
+        {% else %}
+            <div class="alert alert-danger col-sm-6 md-7 offset-3" role="alert"><p class="col-sm-7 md-8 offset-5">{{form.message}}</p>
+                <a class="col-sm-7 md-8 offset-5" href="index.php?page=admin-menu-ajout">Ajouter un autre menu</a>
+            </div>
+        {% endif%}
+    {% else %}
+    
+        <div align="center">
+            <form class="form-group" action="index.php?page=admin-menu-ajout" method="post">
+                <h1 class="h3 mb-3 font-weight-normal">Ajouter un menu</h1>
+                <div class="col-md-2 offset-md-0">
+                    <input type="date" id="date" name="date" class="form-control" placeholder="XX/XX/XXXX">
+                </div>
+                <div class="col-md-2 offset-md-0">
+                    <textarea type="textarea" id="description" name="description" class="form-control" placeholder="Saisir une description :"></textarea>
+                </div>
+                <div class="col-md-2 offset-md-0">
+                <select name="plat" class="form-control">
+                    {% for u in form.produit %}
+                         <option value="{{u.id}}">{{u.designation}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+                <button class="btn btn-lg btn-outline-primary col-sm-2 md-6 offset-0" type="submit" name="btAjouter">Ajouter</button>
+            </form>
+        </div>
+        
+    {% endif %}
+    
+{% endblock %}

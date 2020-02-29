@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Connexion {% endblock %}
+
+{% block style %} <link href="css/form.css" rel="stylesheet">   {% endblock %}
+
+{% block body %} 
+    
+{% if form.valide is defined %} 
+    {% if form.valide == false %}
+        <h1 class="h3 mb-3 font-weight-normal">{{form.message}}</h1>
+    {% endif %}
+{% endif %}
+    <div align="center">
+        <form class="form-signin" action="index.php?page=admin-panel-connexion" method="post" enctype="application/x-www-form-urlencoded">
+             <h1>Se connecter</h1>
+             <div class="col-md-2 offset-md-0">
+                 <input type="email" id="email" name="email" class="form-control" placeholder="Adresse mail" required autofocus>
+             </div>
+             <div class="col-md-2 offset-md-0">
+             <input type="password" id="passwd" name="passwd" class="form-control" placeholder="Mot de passe" required>
+             </div>
+             <button type="submit" class="btn btn-primary btConnexion" name="btConnexion">Se connecter</button>
+             <a href="index.php?page=admin-panel-inscription">S'inscrire</a>
+        </form> 
+    </div>
+{% endblock %} 

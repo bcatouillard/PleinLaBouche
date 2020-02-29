@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Plats {% endblock %}
+
+{% block style %} <link href="css/produit.scss" rel="stylesheet">    {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="h3 mb-3 font-weight-normal">Plats</h1>
+        <div class="row">
+        {% if form.lesProduits is defined %}
+            {% if form.lesProduits != null %}
+                {% for p in form.lesProduits %}
+                    <div class="col-4">
+                        <div class="card" style="min-height:12rem;">
+                          <div class="card-body">
+                            <h5 class="card-title" align="center">{{p.designation}}</h5>
+                            {% if p.nom is not empty %}
+                                <img src="{{form.directory}}{{p.nom}}" class="card-img" style="max-height: 9rem;">
+                            {% endif %}
+                            <p class="card-text">{{p.description}} <br>Pour {{p.nbPersonne}}{%if p.nbPersonne >1%}personnes{%else%}personne{%endif%}<br> Prix : {{p.prix}}€</p>
+                          </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h1 class="h3 mb-3 font-weight-normal">Aucun plat à afficher</h1>
+            {% endif %}
+        {% endif %}
+        </div>
+        <hr
+    </div>
+{% endblock %}

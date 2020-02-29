@@ -1,0 +1,69 @@
+<!DOCTYPE HTML> 
+<html lang="fr">    
+    <head>        
+        <meta charset="utf-8">        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">        
+        <meta name="viewport" content="width=device-width, initial-scale=1">        
+        <meta name="description" content="">        
+        <meta name="author" content="">        
+        <title> Plein La Bouche -  {% block title %} {% endblock %}</title>        
+        <link href="css/bootstrap.css" rel="stylesheet">        
+        <link href="css/style.css" rel="stylesheet">   
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="js/sweetalert/dist/sweetalert2.min.css" rel="stylesheet">
+        {% block style %} {% endblock %}    
+    </head>        
+    <body>    
+        <nav class="navbar navbar-expand-lg" id="topnav">
+            <a class="navbar-brand" href="index.php">Plein La Bouche</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="sr-only"></span><i class="fa fa-bars" style="color:#fff" aria-hidden="true"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item active"><a class="nav-link" href="index.php">Accueil</a></li>
+                    {%if session.login is defined %}
+                        {%if session.role == 1 %}
+                            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="index.php?page=admin-categorie-liste">Catégorie</a>
+                                    <a class="dropdown-item" href="index.php?page=admin-plat-liste">Plats</a>
+                                    <a class="dropdown-item" href="index.php?page=admin-menu-liste">Menus</a>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link" href="index.php?page=actualite">Actualités</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php?page=plat">Plats</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php?page=contact">Contact</a></li>
+                    {% if session.login is defined %}
+                        <li class="nav-item"><a class="nav-link" href="index.php?page=admin-panel-deconnexion">Se déconnecter</a></li>
+                    {% endif %}
+                </ul>
+              <!--  <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+                </form>-->
+            </div>
+        </nav>
+        <div class="radial-bg">  
+        {% block body %}        
+            
+        {% endblock %}
+        
+        
+        </div>
+        <footer id="myFooter">
+            <div class="footer-copyright">
+                <p>&copyTous droits réservés - <a href="index.php?page=admin-panel-connexion">Accès réservé</a> -  Crée par <a href="https://www.linkedin.com/in/bcatouillard/" target="_blank">Benjamin Catouillard</a></p>
+            </div>
+        </footer>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>window.jQuery  ||  document.write('<script  src="js/jquery-3.2.1.min.js"><\/script>')</script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/sweetalert/dist/sweetalert2.all.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        {% block js %} {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Ajout d'une catégorie {% endblock %}
+
+{% block body %}
+    
+    {% if form.valide is defined %}
+        {% if form.valide == true %}
+            <div class="alert alert-success col-sm-6 md-7 offset-3" role="alert"><p class="col-sm-7 md-8 offset-5">{{form.message}}</p>
+                <a class="col-sm-7 md-8 offset-5" href="index.php?page=admin-categorie-liste">Retour à la liste des catégories</a>
+            </div>
+        {% else %}
+            <div class="alert alert-danger col-sm-6 md-7 offset-3" role="alert"><p class="col-sm-7 md-8 offset-5">{{form.message}}</p>
+                <a class="col-sm-7 md-8 offset-5" href="index.php?page=admin-categorie-ajout">Ajouter une autre catégorie</a>
+            </div>
+        {% endif%}
+    {% else %}
+    
+        <div align="center">
+            <form class="form-group" action="index.php?page=admin-categorie-ajout" method="post">
+                <h1 class="h3 mb-3 font-weight-normal">Ajouter une catégorie</h1>
+                <div class="col-md-2 offset-md-0">
+                    <input type="text" id="libelle" name="libelle" class="form-control" placeholder="Saisir un libellé :">
+                </div>
+                <button class="btn btn-lg btn-outline-primary col-sm-2 md-6 offset-0" type="submit" name="btAjouter">Ajouter</button>
+            </form>
+        </div>
+        
+    {% endif %}
+    
+{% endblock %}

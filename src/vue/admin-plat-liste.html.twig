@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Liste des plats {% endblock %}
+
+{% block body %}
+    <div class="panel panel-default">
+        <div class="table-responsive">
+    <h1 class="h3 mb-3 font-weight-normal">Liste des plats - <a href="index.php?page=admin-plat-ajout">Ajouter un plat</a></h1>
+    
+    <form method="post" action="index.php?page=admin-plat-liste">
+        <table class="table table-hover table-striped col-sm-10 md-6 offset-1">
+            <thead>
+                <tr>
+                    <th scope="col">Désignation</th>
+                    <th scoe="col">Description</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Nombre de Personnes</th>
+                    <th scope="col">Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if not liste is empty %}
+                    {% for u in liste %}
+                      <tr>
+                        <td scope="row"><a href="index.php?page=admin-plat-modif&id={{u.id}}">{{u.designation}}</a></td>
+                        <td scope="row">{{u.description}}</td>
+                        <td scope="row">{{u.prix}}€</td>
+                        <td scope="row">{{u.nbPersonne}}</td>
+                        <td scope="row"><input type="checkbox" name="cocher[]"  class="checkbox" value="{{u.id}}"/></td>
+                      </tr>
+                    {% endfor %}
+                {% else %}
+                    <td align="center" class="h2">Aucun plat à afficher</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                {% endif %}
+            </tbody>
+        </table> 
+        {% if form.nbproduit is defined %}
+            {% if form.nbproduit > 3 %}
+                {% set nb = form.nbpages %}
+                <nav aria-label="Page navigation" class="col-sm-10 md-6 offset-1">
+                    <ul class="pagination">
+                        <li>
+                            <a href="index.php?page=admin-plat-liste&nopage={{ 0 }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% for i in 1..nb %}
+                        <li><a href="index.php?page=admin-plat-liste&nopage={{ i-1 }}">{{ i }}</a></li>
+                    {% endfor %} 
+                        <li>
+                            <a href="index.php?page=admin-plat-liste&nopage={{ nb-1 }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            {% endif %}
+        {% endif %}
+        <button class="btn btn-outline-danger col-sm-10 md-6 offset-1" type="submit" name="btSupprimer" class="btSupprimer">Supprimer</button>
+    </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Ajouter un plat {% endblock %}
+
+{% block body %}
+    {% if form.valide is defined %}
+        {% if form.valide == true %}
+            <div class="alert alert-success col-sm-6 md-7 offset-3" role="alert"><p class="col-sm-7 md-8 offset-5">{{form.message}}</p>
+                <a class="col-sm-7 md-8 offset-5" href="index.php?page=admin-plat-liste">Retour à la liste des plats</a>
+            </div>
+        {% else %}
+            <div class="alert alert-danger col-sm-6 md-7 offset-3" role="alert"><p class="col-sm-7 md-8 offset-5">{{form.message}}</p>
+                <a class="col-sm-7 md-8 offset-5" href="index.php?page=admin-plat-ajout">Ajouter un autre plat</a>
+            </div>
+        {% endif%}
+    {% else %}
+            <form class="form-group offset-3" action="index.php?page=admin-plat-ajout" method="post" enctype="multipart/form-data" style="width:900px">
+             <h1 class="h3 mb-3 font-weight-normal">Ajouter un plat</h1>
+                <div>
+                    <input type="text" id="designation" name="designation" class="form-control" placeholder="Saisir une désignation:">
+                </div>
+                <div>
+                    <textarea type="textarea" id="description" name="description" class="form-control" placeholder="Saisir une description:"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <input type="text" id="prix" name="prix" class="form-control" placeholder="Saisir un prix:">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" id="nbPersonne" name="nbPersonne" class="form-control" placeholder="Nombre de personnes:">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                    <select class="form-control" name="cat[]">
+                        <option value="" selected>Choisissez une catégorie</option>
+                        {% for u in form.categorie %}
+                            <option value="{{u.id}}">{{u.libelle}}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-control" name="cat[]">
+                            <option value="" selected>Choisissez une catégorie</option
+                            {% for u in form.categorie %}
+                                <option value="{{u.id}}">{{u.libelle}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <select class="form-control" name="cat[]">
+                            <option value="" selected>Choisissez une catégorie</option
+                            {% for u in form.categorie %}
+                                <option value="{{u.id}}">{{u.libelle}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="file" class="form-control-file" name="photo[]" multiple="multiple"/>
+                    </div>
+                </div>
+                <button class="btn btn-lg btn-block btn-outline-primary col-sm-12" type="submit" name="btAjouter">Ajouter</button>
+            </form>
+    {% endif %}
+{% endblock %}
+
