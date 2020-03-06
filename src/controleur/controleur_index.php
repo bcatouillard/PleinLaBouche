@@ -65,13 +65,13 @@ function actionContact($twig){
                 $mail->isSMTP();                                      // Set mailer to use SMTP
                 $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
                 $mail->SMTPAuth = true;                               // Enable SMTP authentication
-                $mail->Username = 'catouillard.benjamin@gmail.com';                 // email utilisateur
-                $mail->Password = 'Belline62Cocalife';                           // mdp utilisateur
+                $mail->Username = '********@gmail.com';                 // email utilisateur
+                $mail->Password = '*********';                           // mdp utilisateur
                 $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
                 $mail->Port = 587;                                    // TCP port to connect to
                 //Recipients
                 $mail->setFrom($mail_from, $name);
-                $mail->addAddress('catouillard.benjamin@gmail.com');     // Email de réception
+                $mail->addAddress('*******@gmail.com');     // Email de réception
                 //Content
                 $mail->isHTML(true);                                  // Set email format to HTML
                 $mail->Subject = "Formulaire de contact";
